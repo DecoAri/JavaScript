@@ -19,7 +19,7 @@ function login() {
             let cookies = jsonData.cookies
             let regex = /route.*MOD_AUTH_CAS/
             cp.cookie = cookies.replace(regex, "MOD_AUTH_CAS")
-            console.log(cp.cookie)
+            console.log('\n' + cp.cookie)
             resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
         });
     });
@@ -37,7 +37,7 @@ function wid() {
     return new Promise(function(resolve) {
         $httpClient.post(widurl, function(error, resp, data) {
             let jsonData = JSON.parse(data);
-            console.log(data)
+            console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
             if (cp.leave == undefined) {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
@@ -115,15 +115,18 @@ function submit() {
         $httpClient.post(submiturl, function(error, resp, data) {
             let jsonData = JSON.parse(data);
             cp.msg = jsonData.message
-            $notification.post("今日校园", cp.msg, "")
             $httpClient.post({
                 url: 'https://sctapi.ftqq.com/' + $persistentStore.read("server酱") + '.send',
                 header: {
                     'Content-Type' : 'application/x-www-form-urlencoded; charset=utf-8'
                 },
                 body: 'title=今日校园' + cp.msg + '&desp=今日校园'
+            }, function(error,resp,data) {
+                let jsonData = JSON.parse(data)
+                console.log('\n' + jsonData.message)
+                $notification.post("今日校园", cp.msg, jsonData.message)
+                resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
             })
-            resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
         });
     });
 }
