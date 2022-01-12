@@ -15,12 +15,22 @@ function login() {
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
-            let jsonData = JSON.parse(data);
-            let cookies = jsonData.cookies
-            let regex = /route.*MOD_AUTH_CAS/
-            cp.cookie = cookies.replace(regex, "MOD_AUTH_CAS")
-            console.log('\n' + cp.cookie)
-            resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
+            console.log(resp.status)
+            if (resp.status != 200) {
+                login()
+            } else {
+                let jsonData = JSON.parse(data);
+                console.log(jsonData.msg)
+                if (jsonData.msg != "login success!") {
+                    login()
+                } else {
+                    let cookies = jsonData.cookies
+                    let regex = /route.*MOD_AUTH_CAS/
+                    cp.cookie = cookies.replace(regex, "MOD_AUTH_CAS")
+                    console.log('\n' + cp.cookie)
+                    resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
+                }
+            }
         });
     });
 }
