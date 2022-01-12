@@ -15,7 +15,7 @@ function login() {
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
-            console.log(resp.status)
+            console.log(resp.statusCode)
             if (resp.statusCode != 200) {
                 login()
             } else {
