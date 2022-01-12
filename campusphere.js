@@ -16,7 +16,7 @@ function login() {
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
             console.log(resp.status)
-            if (resp.status != 200) {
+            if (resp.statusCode != 200) {
                 login()
             } else {
                 let jsonData = JSON.parse(data);
