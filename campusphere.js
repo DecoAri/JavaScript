@@ -125,6 +125,7 @@ function submit() {
         $httpClient.post(submiturl, function(error, resp, data) {
             let jsonData = JSON.parse(data);
             cp.msg = jsonData.message
+            console.log(cp.msg)
             $httpClient.post({
                 url: 'https://sctapi.ftqq.com/' + $persistentStore.read("server酱") + '.send',
                 header: {
