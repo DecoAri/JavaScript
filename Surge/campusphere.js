@@ -80,46 +80,57 @@ function form() {
             cp.formWid1 = jsonData.datas.extraField[1].extraFieldItems[0].wid
             cp.formWid2 = jsonData.datas.extraField[2].extraFieldItems[0].wid
             cp.formWid3 = jsonData.datas.extraField[3].extraFieldItems[0].wid
+            cp.formWid4 = jsonData.datas.extraField[4].extraFieldItems[0].wid
+            cp.formcontent = jsonData.datas.extraField[0].extraFieldItems[0].content
+            cp.formcontent1 = jsonData.datas.extraField[1].extraFieldItems[0].content
+            cp.formcontent2 = jsonData.datas.extraField[2].extraFieldItems[0].content
+            cp.formcontent3 = jsonData.datas.extraField[3].extraFieldItems[0].content
+            cp.formcontent4 = jsonData.datas.extraField[4].extraFieldItems[0].content
             resolve();
         })
     })
 }
 function submit() {
+    const bodys = {
+          "abnormalReason": "",
+          "position": `${cp.location}`,
+          "longitude": `${cp.long}`,
+          "isNeedExtra": 1,
+          "latitude": `${cp.la}`,
+          "isMalposition": 1,
+          "extraFieldItems": [
+            {
+              "extraFieldItemWid": `${cp.formWid}`,
+              "extraFieldItemValue": `${cp.formcontent}`
+            },
+            {
+              "extraFieldItemWid": `${cp.formWid1}`,
+              "extraFieldItemValue": `${cp.formcontent1}`
+            },
+            {
+              "extraFieldItemWid": `${cp.formWid2}`,
+              "extraFieldItemValue": `${cp.formcontent2}`
+            },
+            {
+              "extraFieldItemWid": `${cp.formWid3}`,
+              "extraFieldItemValue": `${cp.formcontent3}`
+            },
+            {
+              "extraFieldItemWid": `${cp.formWid4}`,
+              "extraFieldItemValue": `${cp.formcontent4}`
+            }
+          ],
+          "signPhotoUrl": "",
+          "uaIsCpadaily": false,
+          "signInstanceWid": `${cp.wid}`
+    }
     const submiturl = {
         url: 'https://' + $persistentStore.read("学校") + '.campusphere.net/wec-counselor-sign-apps/stu/sign/submitSign',
         headers: {
           'Cookie' : cp.cookie,
           'Content-Type' : 'application/json;charset=utf-8'
         },
-        body: `{
-          "abnormalReason": "",
-          "position": ${cp.location},
-          "longitude": ${cp.long},
-          "isNeedExtra": 1,
-          "latitude": ${cp.la},
-          "isMalposition": 1,
-          "extraFieldItems": [
-            {
-              "extraFieldItemWid": ${cp.formWid},
-              "extraFieldItemValue": "37.2℃及以下"
-            },
-            {
-              "extraFieldItemWid": ${cp.formWid1},
-              "extraFieldItemValue": "否"
-            },
-            {
-              "extraFieldItemWid": ${cp.formWid2},
-              "extraFieldItemValue": "绿色"
-            },
-            {
-              "extraFieldItemWid": ${cp.formWid3},
-              "extraFieldItemValue": "是"
-            }
-          ],
-          "signPhotoUrl": "",
-          "uaIsCpadaily": false,
-          "signInstanceWid": ${cp.wid}
-        }`
+        body: JSON.stringify(bodys)
     };
     return new Promise(function(resolve) {
         $httpClient.post(submiturl, function(error, resp, data) {
