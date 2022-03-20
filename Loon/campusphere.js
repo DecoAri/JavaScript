@@ -11,8 +11,7 @@ cp.location = $persistentStore.read("地区");
 })();
 function login() {
     const loginurl = {
-        url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
-        timeout: 20
+        url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号")
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
