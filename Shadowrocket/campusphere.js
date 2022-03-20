@@ -5,13 +5,14 @@ cp.location = $persistentStore.read("地区");
 (async function() {
     await login();
     await wid();
-    await form()
-    await submit()
-    $done()
+    await form();
+    await submit();
+    $done();
 })();
 function login() {
     const loginurl = {
         url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
+        timeout: 20
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
@@ -49,12 +50,18 @@ function wid() {
             let jsonData = JSON.parse(data);
             console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
-            if (cp.leave == undefined) {
+            cp.unsign = jsonData["datas"].unSignedTasks[0]
+            if (typeof(cp.unsign) == "undefined") {
+              if (typeof(cp.leave) == "undefined") {
+              console.log("无签到")
+                $done($notification.post("无签到","",""))
+              } else {
+                cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
+                cp.signWid = jsonData["datas"].leaveTasks[0].signWid
+              }
+            } else {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
               cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
-            } else {
-              cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
-              cp.signWid = jsonData["datas"].leaveTasks[0].signWid
             }
             resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
         });
