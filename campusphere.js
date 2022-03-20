@@ -5,13 +5,19 @@ cp.location = $persistentStore.read("地区");
 (async function() {
     await login();
     await wid();
-    await form()
-    await submit()
-    $done()
+        if (cp.done = 0) {
+            $notification.post("无签到", "", "")
+            $done()
+        } else {
+            await form();
+            await submit();
+            $done();
+        };
 })();
 function login() {
     const loginurl = {
         url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
+        timeout: 20
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
@@ -49,7 +55,10 @@ function wid() {
             let jsonData = JSON.parse(data);
             console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
-            if (cp.leave == undefined) {
+            cp.unsign = jsonData["datas"].unSignedTasks[0]
+            if (cp.leave && cp.unsign == undefined) { 
+              cp.done = 0
+            } else if (cp.leave == undefined) {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
               cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
             } else {

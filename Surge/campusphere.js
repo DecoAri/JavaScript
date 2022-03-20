@@ -5,9 +5,14 @@ cp.location = $persistentStore.read("地区");
 (async function() {
     await login();
     await wid();
-    await form()
-    await submit()
-    $done()
+        if (cp.done = 0) {
+            $notification.post("无签到", "", "")
+            $done()
+        } else {
+            await form();
+            await submit();
+            $done();
+        };
 })();
 function login() {
     const loginurl = {
@@ -50,7 +55,10 @@ function wid() {
             let jsonData = JSON.parse(data);
             console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
-            if (cp.leave == undefined) {
+            cp.unsign = jsonData["datas"].unSignedTasks[0]
+            if (cp.leave && cp.unsign == undefined) { 
+              cp.done = 0
+            } else if (cp.leave == undefined) {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
               cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
             } else {
