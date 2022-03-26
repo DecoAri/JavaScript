@@ -15,8 +15,11 @@ function login() {
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
-            console.log(resp.statusCode)
-            if (resp.statusCode != 200) {
+            if (typeof(resp) == "undefined") {
+                console.log(resp)
+                login()
+            }else if (resp.statusCode != 200) {
+                console.log(resp.statusCode)
                 login()
             } else {
                 let jsonData = JSON.parse(data);
@@ -50,14 +53,12 @@ function wid() {
             console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
             cp.unsign = jsonData["datas"].unSignedTasks[0]
-            if (typeof(cp.unsign) == "undefined") {
-              if (typeof(cp.leave) == "undefined") {
-              console.log("无签到")
+            if (typeof(cp.unsign) == "undefined" && typeof(cp.leave) == "undefined") {
+                console.log("无签到")
                 $done($notification.post("无签到","",""))
-              } else {
+            } else if (typeof(cp.unsign) == "undefined") {
                 cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
                 cp.signWid = jsonData["datas"].leaveTasks[0].signWid
-              }
             } else {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
               cp.signWid = jsonData["datas"].unSignedTasks[0].signWid

@@ -12,12 +12,15 @@ cp.location = $persistentStore.read("地区");
 function login() {
     const loginurl = {
         url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
-        timeout: 20
+        timeout: 30
     };
     return new Promise(function(resolve) {
         $httpClient.post(loginurl, function(error, resp, data) {
-            console.log(resp.status)
-            if (resp.status != 200) {
+            if (typeof(resp) == "undefined") {
+                console.log(resp)
+                login()
+            }else if (resp.status != 200) {
+                console.log(resp.status)
                 login()
             } else {
                 let jsonData = JSON.parse(data);
@@ -51,14 +54,12 @@ function wid() {
             console.log('\n' + data)
             cp.leave = jsonData["datas"].leaveTasks[0]
             cp.unsign = jsonData["datas"].unSignedTasks[0]
-            if (typeof(cp.unsign) == "undefined") {
-              if (typeof(cp.leave) == "undefined") {
-              console.log("无签到")
+            if (typeof(cp.unsign) == "undefined" && typeof(cp.leave) == "undefined") {
+                console.log("无签到")
                 $done($notification.post("无签到","",""))
-              } else {
+            } else if (typeof(cp.unsign) == "undefined") {
                 cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
                 cp.signWid = jsonData["datas"].leaveTasks[0].signWid
-              }
             } else {
               cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
               cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
