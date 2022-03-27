@@ -10,6 +10,7 @@ cp.location = $persistentStore.read("地区");
     $done();
 })();
 function login() {
+    console.log("await login")
     const loginurl = {
         url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
         timeout: 30
@@ -40,6 +41,7 @@ function login() {
 }
 
 function wid() {
+    console.log("await wid")
     const widurl = {
         url: 'https://' + $persistentStore.read("学校") + '.campusphere.net/wec-counselor-sign-apps/stu/sign/getStuSignInfosInOneDay',
         headers: {
@@ -70,6 +72,7 @@ function wid() {
 }
 
 function form() {
+    console.log("await form")
     const formurl = {
       url: 'https://' + $persistentStore.read("学校") + '.campusphere.net/wec-counselor-sign-apps/stu/sign/detailSignInstance',
       headers: {
@@ -99,6 +102,7 @@ function form() {
     })
 }
 function submit() {
+    console.log("await submit")
     const bodys = {
           "abnormalReason": "",
           "position": `${cp.location}`,
