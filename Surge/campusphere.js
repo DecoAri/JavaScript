@@ -157,7 +157,7 @@ function submit() {
                 body: 'title=今日校园' + cp.msg + '&desp=今日校园'
             }, function(error,resp,data) {
                 let jsonData = JSON.parse(data)
-                console.log('\n' + jsonData.data.error)
+                console.log("方糖通知: " + jsonData.data.error)
                 $notification.post("今日校园", cp.msg, jsonData.data.error)
                 resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
             })
