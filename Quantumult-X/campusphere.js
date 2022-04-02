@@ -164,7 +164,7 @@ function submit() {
             $fask.fetch({url: 'https://sctapi.ftqq.com/' + $prefs.valueForKey("server酱") + '.send', method: 'POST'}).then(resp => {
                 let jsonData = JSON.parse(data)
                 console.log("方糖通知: " + jsonData.data.error)
-                $notify("今日校园", cp.msg, jsonData.data.error)
+                $notify("今日校园", cp.msg, "方糖通知: " + jsonData.data.error)
                 resolve();
             }, reason => {
                 resolve()
