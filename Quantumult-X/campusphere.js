@@ -11,30 +11,41 @@ cp.location = $prefs.valueForKey("地区");
 })();
 
 function login() {
-    console.log("await login")
+    console.log("await response")
+    const Head = {
+        url: 'http://' + $prefs.valueForKey("ip") + ':8080/wisedu-unified-login-api-v1.0/swagger-ui.html',
+        method: "HEAD"
+    };
     const loginurl = {
         url: 'http://' + $prefs.valueForKey("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $prefs.valueForKey("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $prefs.valueForKey("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $prefs.valueForKey("密码") + '&username=' + $prefs.valueForKey("账号")
     };
     return new Promise(function(resolve) {
-        $task.fetch(loginurl).then(resp => {
-            if (typeof(resp.body) == "undefined") {
-                console.log(resp.body)
-                login()
-            }else if (resp.statusCode != 200) {
-                console.log(resp.statusCode)
+        $task.fetch(Head).then(response => {
+            console.log(response.statusCode)
+            if (response.statusCode != 200) {
                 login()
             } else {
-                let jsonData = JSON.parse(resp.body);
-                console.log(jsonData.msg)
-                if (jsonData.msg != "login success!") {
+                console.log("await login")
+                $task.fetch(loginurl).then(resp => {
+                    if (typeof(resp.body) == "undefined") {
+                        console.log(resp.body)
+                        login()
+                    } else {
+                        let jsonData = JSON.parse(resp.body);
+                        if (jsonData.msg != "login success!") {
+                            login()
+                        } else {
+                            let cookies = jsonData.cookies
+                            let regex = /route.*MOD_AUTH_CAS/
+                            cp.cookie = cookies.replace(regex, "MOD_AUTH_CAS")
+                            console.log('\n' + cp.cookie)
+                            resolve()
+                        }
+                    }
+                }, reason => {
+                    console.log(reason.error)
                     login()
-                } else {
-                    let cookies = jsonData.cookies
-                    let regex = /route.*MOD_AUTH_CAS/
-                    cp.cookie = cookies.replace(regex, "MOD_AUTH_CAS")
-                    console.log('\n' + cp.cookie)
-                    resolve()
-                }
+                })
             }
         }, reason => {
             console.log(reason.error)
