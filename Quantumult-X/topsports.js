@@ -38,8 +38,8 @@ $task.fetch(getShoes).then(response => {
     } else {
         let start = time(jsonData.data.extend[0].exchangeStartTime);
         let end = time(jsonData.data.extend[0].exchangeEndTime);
-        $notify("👟有新鞋发售啦", jsonData.data.extend[0].productName, "发售时间:" + start +"\n" + "结束时间:" + end + "\n" + "⚠️注：具体发售几双👟请自行查看", {"media-url": jsonData.data.extend[0].indexPicUrl});
-        console.log("👟有新鞋发售啦" + "\n" + jsonData.data.extend[0].productName + "\n" + "发售时间:" + start +"\n" + "结束时间:" + end + "\n" + "⚠️注：具体发售几双👟请自行查看")
+        $notify("👟有新鞋发售啦", jsonData.data.extend[0].productName, "发售时间：" + start +"\n" + "结束时间：" + end + "\n" + "⚠️注：具体发售几双👟请自行查看", {"media-url": jsonData.data.extend[0].indexPicUrl});
+        console.log("👟有新鞋发售啦" + "\n" + jsonData.data.extend[0].productName + "\n" + "发售时间：" + start +"\n" + "结束时间：" + end + "\n" + "⚠️注：具体发售几双👟请自行查看")
         $done();
     }
 }, reason => {
