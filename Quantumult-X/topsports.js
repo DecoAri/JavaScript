@@ -5,6 +5,12 @@
 暂不支持告诉你发售多少，后续再做，如果有后续的话（
 
 只支持Quantumult X
+qx脚本配置（cron按需自行修改）：
+
+[task_local]
+50 8,10,11,12,13,14 * * * https://github.com/DecoAri/JavaScript/blob/main/Quantumult-X/topsports.js?raw=true, tag=滔搏监控, enabled=true
+
+
 
 城市代码请复制以下url在浏览器打开查看cityCode
 https://m-app.topsports.com.cn/app/location/cityList
