@@ -3,11 +3,15 @@ cp.long = $persistentStore.read("经度");
 cp.la = $persistentStore.read("纬度");
 cp.location = $persistentStore.read("地区");
 (async function() {
-    await login();
-    await wid();
-    await form();
-    await submit();
-    $done();
+    if ($persistentStore.read("sign") == "SUCCESS") {
+        $done(console.log("已签到"))
+    } else {
+        await login();
+        await wid();
+        await form();
+        await submit();
+        $done();
+    }
 })();
 function login() {
     console.log("await login")
@@ -58,6 +62,7 @@ function wid() {
             cp.unsign = jsonData["datas"].unSignedTasks[0]
             if (typeof(cp.unsign) == "undefined" && typeof(cp.leave) == "undefined") {
                 console.log("无签到")
+                $persistentStore.write('SUCCESS', 'sign')
                 $done($notification.post("无签到","",""))
             } else if (typeof(cp.unsign) == "undefined") {
                 cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
