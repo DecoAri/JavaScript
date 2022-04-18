@@ -148,18 +148,8 @@ function submit() {
             let jsonData = JSON.parse(data);
             cp.msg = jsonData.message
             console.log(cp.msg)
-            $httpClient.post({
-                url: 'https://sctapi.ftqq.com/' + $persistentStore.read("server酱") + '.send',
-                header: {
-                    'Content-Type' : 'application/x-www-form-urlencoded; charset=utf-8'
-                },
-                body: 'title=今日校园' + cp.msg + '&desp=今日校园'
-            }, function(error,resp,data) {
-                let jsonData = JSON.parse(data)
-                console.log("方糖通知: " + jsonData.data.error)
-                $notification.post("今日校园", cp.msg, "方糖通知: " + jsonData.data.error)
-                resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
-            })
+            $notification.post("今日校园", cp.msg, "")
+            resolve();
         });
     });
 }

@@ -172,14 +172,8 @@ function submit() {
             let jsonData = JSON.parse(response.body);
             cp.msg = jsonData.message
             console.log(cp.msg)
-            $fask.fetch({url: 'https://sctapi.ftqq.com/' + $prefs.valueForKey("server酱") + '.send', method: 'POST'}).then(resp => {
-                let jsonData = JSON.parse(data)
-                console.log("方糖通知: " + jsonData.data.error)
-                $notify("今日校园", cp.msg, "方糖通知: " + jsonData.data.error)
-                resolve();
-            }, reason => {
-                resolve()
-            })
+            $notify("今日校园", cp.msg, "")
+            resolve();
         }, reason => {
             console.log(reason.error)
             submit()
