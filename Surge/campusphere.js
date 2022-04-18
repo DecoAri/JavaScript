@@ -155,7 +155,12 @@ function submit() {
             cp.msg = jsonData.message
             console.log(cp.msg)
             $notification.post("今日校园", cp.msg, "")
-            resolve();
+            if (cp.msg == "SUCCESS") {
+                $persistentStore.write(cp.msg, 'sign')
+                resolve()
+            } else {
+                resolve();
+            }
         });
     });
 }
