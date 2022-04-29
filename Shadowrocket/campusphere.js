@@ -61,11 +61,12 @@ function wid() {
             } else if (typeof(cp.unsign) == "undefined") {
                 cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
                 cp.signWid = jsonData["datas"].leaveTasks[0].signWid
+                resolve(); 
             } else {
-              cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
-              cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
+                cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
+                cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
+                resolve(); 
             }
-            resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
         });
     });
 }

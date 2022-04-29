@@ -3,13 +3,18 @@ cp.long = $persistentStore.read("经度");
 cp.la = $persistentStore.read("纬度");
 cp.location = $persistentStore.read("地区");
 (async function() {
-    await login();
-    await wid();
-    await form();
-    await submit();
-    $done();
+    if ($persistentStore.read("sign") == "SUCCESS") {
+        $done(console.log("已签到"))
+    } else {
+        await login();
+        await wid();
+        await form();
+        await submit();
+        $done();
+    }
 })();
 function login() {
+    console.log("await login")
     const loginurl = {
         url: 'http://' + $persistentStore.read("ip") + ':8080/wisedu-unified-login-api-v1.0/api/login?login_url=http%3A%2F%2Fauthserver.' + $persistentStore.read("学校") + '.cn%2Fauthserver%2Flogin%3Fservice%3Dhttps%253A%252F%252F' + $persistentStore.read("学校") + '.campusphere.net%252Fiap%252FloginSuccess&password=' + $persistentStore.read("密码") + '&username=' + $persistentStore.read("账号"),
         timeout: 30
@@ -40,6 +45,7 @@ function login() {
 }
 
 function wid() {
+    console.log("await wid")
     const widurl = {
         url: 'https://' + $persistentStore.read("学校") + '.campusphere.net/wec-counselor-sign-apps/stu/sign/getStuSignInfosInOneDay',
         headers: {
@@ -56,20 +62,23 @@ function wid() {
             cp.unsign = jsonData["datas"].unSignedTasks[0]
             if (typeof(cp.unsign) == "undefined" && typeof(cp.leave) == "undefined") {
                 console.log("无签到")
+                $persistentStore.write('SUCCESS', 'sign')
                 $done($notification.post("无签到","",""))
             } else if (typeof(cp.unsign) == "undefined") {
                 cp.wid = jsonData["datas"].leaveTasks[0].signInstanceWid
                 cp.signWid = jsonData["datas"].leaveTasks[0].signWid
+                resolve();
             } else {
-              cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
-              cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
+                cp.wid = jsonData["datas"].unSignedTasks[0].signInstanceWid
+                cp.signWid = jsonData["datas"].unSignedTasks[0].signWid
+                resolve();
             }
-            resolve(); //异步操作成功时调用, 将Promise对象的状态标记为"成功", 表示已完成
         });
     });
 }
 
 function form() {
+    console.log("await form")
     const formurl = {
       url: 'https://' + $persistentStore.read("学校") + '.campusphere.net/wec-counselor-sign-apps/stu/sign/detailSignInstance',
       headers: {
@@ -99,6 +108,7 @@ function form() {
     })
 }
 function submit() {
+    console.log("await submit")
     const bodys = {
           "abnormalReason": "",
           "position": `${cp.location}`,
@@ -145,8 +155,13 @@ function submit() {
             let jsonData = JSON.parse(data);
             cp.msg = jsonData.message
             console.log(cp.msg)
-            $notification.post("今日校园", cp.msg, '')
-            resolve();
+            $notification.post("今日校园", cp.msg, "")
+            if (cp.msg == "SUCCESS") {
+                $persistentStore.write(cp.msg, 'sign')
+                resolve()
+            } else {
+                resolve();
+            }
         });
     });
 }
