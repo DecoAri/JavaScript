@@ -47,10 +47,10 @@ function httpAPI(method = "", path = "", body = "") {
     });
 }
 
-function iconStatus(status){
-  if (status){
+function iconStatus(status) {
+  if (status) {
     return "\u2611";
   } else {
-      return "\u2612"
-    }
+    return "\u2612"
+  }
 }
