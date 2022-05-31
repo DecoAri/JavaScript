@@ -21,7 +21,7 @@ $httpClient.get("http://ip-api.com/json/", function(error, response, body){
 })
 
 function flagEmojis(country_code) {
-  if(country_code === `TW` || country_code === `HK`){
+  if(country_code === `TW` || country_code === `HK` || country_code === `MO`){
     let codePoints = `CN`
       .toUpperCase()
       .split('')
