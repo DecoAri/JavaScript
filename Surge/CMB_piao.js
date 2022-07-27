@@ -1,5 +1,5 @@
-#Only for Chongqing now.
-#Adjust yourself or waiting for me.
+//Only for Chongqing now.
+//Adjust yourself or waiting for me.
 
 (async function() {
     await OMG();
