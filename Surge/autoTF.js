@@ -4,14 +4,14 @@ if ($persistentStore.read('APP_ID') == null && $persistentStore.read('APP_ID2') 
     $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
 } else if ($persistentStore.read('APP_ID') == null) {
     await autoPost($persistentStore.read('APP_ID2'))
-    if (autoPost($persistentStore.read('APP_ID2')) == null) {
+    if (autoPost($persistentStore.read('APP_ID2')) == undefined) {
       $done()
     } else {
       $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
     }
 } else if ($persistentStore.read('APP_ID2') == null) {
     await autoPost($persistentStore.read('APP_ID'))
-    if (autoPost($persistentStore.read('APP_ID')) == null) {
+    if (autoPost($persistentStore.read('APP_ID')) == undefined) {
       $done()
     } else {
       $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
