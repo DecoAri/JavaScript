@@ -1,26 +1,30 @@
 !(async () => {
 if ($persistentStore.read('APP_ID') == null && $persistentStore.read('APP_ID2') == null) {
-    $notification.post('模块已关闭','原因：APP_ID未手动配置，请手动配置','配置完成请重新打开脚本模块')
+    $notification.post('模块已关闭','原因：APP_ID未手动配置/已经完成TF加入','配置完成请重新打开脚本模块')
     $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
 } else if ($persistentStore.read('APP_ID') == null) {
-    await autoPost($persistentStore.read('APP_ID2'))
-    if (autoPost($persistentStore.read('APP_ID2')) == undefined) {
+    if (await autoPost($persistentStore.read('APP_ID2')) == undefined) {
       $done()
     } else {
       $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
     }
 } else if ($persistentStore.read('APP_ID2') == null) {
-    await autoPost($persistentStore.read('APP_ID'))
-    if (autoPost($persistentStore.read('APP_ID')) == undefined) {
+    if (await autoPost($persistentStore.read('APP_ID')) == undefined) {
       $done()
     } else {
       $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
     }
 } else {
-    await autoPost($persistentStore.read('APP_ID'))
-    
-    await autoPost($persistentStore.read('APP_ID2'))
-    
+    if (await autoPost($persistentStore.read('APP_ID')) == undefined) {
+      $done()
+    } else {
+      $persistentStore.write(null, 'APP_ID')
+    }
+    if (await autoPost($persistentStore.read('APP_ID2')) == undefined) {
+      $done()
+    } else {
+      $persistentStore.write(null, 'APP_ID2')
+    }
 }
 })();
 
