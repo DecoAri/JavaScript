@@ -1,6 +1,6 @@
 !(async () => {
 if ($persistentStore.read('APP_ID') == null && $persistentStore.read('APP_ID2') == null) {
-    $notification.post('模块已关闭','原因：APP_ID未手动配置/已经完成TF加入','配置完成请重新打开脚本模块')
+    $notification.post('模块已关闭','原因：APP_ID未手动配置/已经完成所有TF加入','配置完成请重新打开脚本模块')
     $done($httpAPI('POST', '/v1/modules', {'Auto module for JavaScripts': 'false'}))
 } else if ($persistentStore.read('APP_ID') == null) {
     if (await autoPost($persistentStore.read('APP_ID2')) == undefined) {
@@ -42,13 +42,13 @@ function autoPost(APP_ID) {
       if (error === null) {
         let jsonData = JSON.parse(data)
         if (jsonData.data.status == "FULL") {
-          console.log(jsonData.data.message)
+          console.log(ID + ' ' + jsonData.data.message)
           resolve();
         } else {
           $httpClient.post({url: testurl + ID + "/accept",headers: header}, function(error, resp, body) {
             let jsonBody = JSON.parse(body)
-            $notification.post(jsonBody.data.name, "TestFlight加入成功", "若配置了模块，则脚本已自动关闭")
-            console.log(jsonBody.data.name + " TestFlight加入成功")
+            $notification.post(jsonBody.data.name, "TestFlight加入成功", "")
+            console.log(ID + ' ' + jsonBody.data.name + " TestFlight加入成功")
             resolve('SUCCESS');
           });
         }
@@ -57,7 +57,7 @@ function autoPost(APP_ID) {
           resolve();
         } else {
           $notification.post('自动加入TF', error,'')
-          console.log(error)
+          console.log(ID + ' ' + error)
           resolve();
         }
       }
