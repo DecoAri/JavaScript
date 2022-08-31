@@ -24,7 +24,10 @@ function autoPost(ID) {
     $httpClient.get({url: testurl + ID,headers: header}, function(error, resp, data) {
       if (error === null) {
         let jsonData = JSON.parse(data)
-        if (jsonData.data.status == 'FULL') {
+        if (jsonData.data == null) {
+          console.log(ID + ' ' + jsonData.messages[0].message)
+          resolve();
+        } else if (jsonData.data.status == 'FULL') {
           console.log(ID + ' ' + jsonData.data.message)
           resolve();
         } else {
