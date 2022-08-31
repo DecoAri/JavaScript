@@ -34,12 +34,10 @@ function autoPost(ID) {
           $httpClient.post({url: testurl + ID + '/accept',headers: header}, function(error, resp, body) {
             let jsonBody = JSON.parse(body)
             $notification.post(jsonBody.data.name, 'TestFlight加入成功', '')
-            console.log(jsonBody.data.name + ' TestFlight加入成功')
-						ids = $persistentStore.read('APP_ID')
-						ids = ids.split(',')
-						ids.splice(ids.indexOf(ID), 1)
-						ids = ids.toString()
-						$persistentStore.write(ids,'APP_ID')
+						console.log(jsonBody.data.name + ' TestFlight加入成功')
+						ids = $persistentStore.read('APP_ID').split(',')
+						ids = ids.filter(ids => ids !== ID)
+						$persistentStore.write(ids.toString(),'APP_ID')
 						resolve()
           });
         }
