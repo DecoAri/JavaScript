@@ -1,5 +1,5 @@
 /**
-作用：显示公共TF的分享链接（非公测链接无法显示）
+作用：显示公共TF的分享链接（非公测链接无法显示），若没有链接或者没有描述说明啥也没有（无法分享链接
 路径：App--App Details--Description
 使用方法：
 Surge:
@@ -15,8 +15,4 @@ hostname = testflight.apple.com
 **/
 
 
-let obj = JSON.parse($response.body)
-if (obj.data.shareUrl !== null) {
-  obj.data.builds[0].description = obj.data.shareUrl + '\n' + obj.data.builds[0].description
-  $done({body:JSON.stringify(obj)});
-} else {$done({})}
+let obj = JSON.parse($response.body);obj.data.builds[0].description = obj.data.shareUrl + '\n' + obj.data.builds[0].description;$done({body:JSON.stringify(obj)});
