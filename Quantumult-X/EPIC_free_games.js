@@ -1,8 +1,9 @@
-
 /**
-建议cron：0 0 * * *
+建议cron：1 0 * * *
 surge脚本请去surge文件夹路径寻找
 */
+
+
 
 
 $task.fetch({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/freeGamesPromotions?locale=en-US&country=US&allowCountries=US"}).then(response => {
@@ -10,8 +11,10 @@ $task.fetch({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/freeGa
   let i = 0
   let games = jsonData.data.Catalog.searchStore.elements
   while (games) {
-    if (jsonData.data.Catalog.searchStore.elements[i].title == "Mystery Game") {
+    if (jsonBody.data.Catalog.searchStore.elements[i] == undefined) {
       break;
+    } else if (jsonData.data.Catalog.searchStore.elements[i].title == "Mystery Game") {
+      i++
     } else {
       games = jsonData.data.Catalog.searchStore.elements[i]
       console.log(JSON.stringify(games))

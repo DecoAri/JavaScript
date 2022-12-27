@@ -1,5 +1,5 @@
 /*
-建议cron：0 0 * * *
+建议cron：1 0 * * *
 相比于rsshub来说，信息来自官网，更新更及时
 QX的js请去Quantumult X的文件夹路径寻找
 */
@@ -11,8 +11,10 @@ $httpClient.get({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/fr
   let i = 0
   let games = jsonBody.data.Catalog.searchStore.elements
   while (games) {
-    if (jsonBody.data.Catalog.searchStore.elements[i].title == "Mystery Game") {
+    if (jsonBody.data.Catalog.searchStore.elements[i] == undefined) {
       break;
+    } else if (jsonBody.data.Catalog.searchStore.elements[i].title == "Mystery Game") {
+      i++
     } else {
       games = jsonBody.data.Catalog.searchStore.elements[i]
       console.log(games)
