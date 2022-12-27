@@ -11,7 +11,7 @@ $task.fetch({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/freeGa
   let i = 0
   let games = jsonData.data.Catalog.searchStore.elements
   while (games) {
-    if (jsonBody.data.Catalog.searchStore.elements[i] == undefined) {
+    if (jsonData.data.Catalog.searchStore.elements[i] == undefined) {
       break;
     } else if (jsonData.data.Catalog.searchStore.elements[i].title == "Mystery Game") {
       i++
