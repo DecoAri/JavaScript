@@ -1,14 +1,15 @@
 //滔搏运动（TopSports）发售监控
 /***********
-暂不支持多城市监控，如需要请配置多个本地脚本并修改脚本本体（小白勿动）
+暂不支持多城市监控，如需要请配置多个本地脚本或修改脚本本体（小白勿动）
 
 已支持多双鞋发售通知
-只支持Quantumult X
+
+只支持Quantumult X / Loon（因名字不能清楚知道鞋子样子，所以需要图片通知来决定是否需要去抽奖，所以暂不支持surge，Loon未适配）
+
 qx脚本配置（cron按需自行修改）：
 
 [task_local]
 50 8,10,11,12,13,14 * * * https://github.com/DecoAri/JavaScript/blob/main/Quantumult-X/topsports.js?raw=true, tag=滔搏监控, enabled=true
-
 
 
 城市代码请复制以下url在浏览器打开查看cityCode
