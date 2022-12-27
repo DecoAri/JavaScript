@@ -2,8 +2,7 @@
 /***********
 暂不支持多城市监控，如需要请配置多个本地脚本并修改脚本本体（小白勿动）
 
-暂不支持告诉你发售多少，后续再做，如果有后续的话（
-
+已支持多双鞋发售通知
 只支持Quantumult X
 qx脚本配置（cron按需自行修改）：
 
@@ -32,18 +31,28 @@ const getShoes = {
 
 $task.fetch(getShoes).then(response => {
     let jsonData = JSON.parse(response.body)
-    if (jsonData.data.extend === null) {
-        console.log("没有新发售鞋👟")
-        $done()
+    let i = 0
+    let shoes = jsonData.data.extend
+    if (shoes == null) {
+        console.log("👟没有新鞋发售")
     } else {
-        let start = time(jsonData.data.extend[0].exchangeStartTime);
-        let end = time(jsonData.data.extend[0].exchangeEndTime);
-        $notify("👟有新鞋发售啦", jsonData.data.extend[0].productName, "发售时间：" + start +"\n" + "结束时间：" + end + "\n" + "⚠️注：具体发售几双👟请自行查看", {"media-url": jsonData.data.extend[0].indexPicUrl});
-        console.log("👟有新鞋发售啦" + "\n" + jsonData.data.extend[0].productName + "\n" + "发售时间：" + start +"\n" + "结束时间：" + end + "\n" + "⚠️注：具体发售几双👟请自行查看")
-        $done();
+        while (shoes) {
+            if (jsonData.data.extend[i] == undefined) {
+                break;
+            } else {
+                shoes = jsonData.data.extend[i]
+                console.log(JSON.stringify(shoes))
+                let start = time(jsonData.data.extend[i].exchangeStartTime)
+                let end = time(jsonData.data.extend[i].exchangeEndTime)
+                $notify("👟有新鞋发售啦", jsonData.data.extend[i].productName, "发售时间：" + start +"\n" + "结束时间：" + end, {"media-url": jsonData.data.extend[i].indexPicUrl});
+                console.log("👟有新鞋发售啦" + "\n" + jsonData.data.extend[i].productName + "\n" + "发售时间：" + start +"\n" + "结束时间：" + end)
+                i++
+            }
+        }
     }
+    $done()
 }, reason => {
-    $notify("脚本运行出错", "", reason.error);
+    $notify("滔搏发售", "脚本运行出错", reason.error);
     $done();
 });
 
