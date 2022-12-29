@@ -18,8 +18,16 @@ $httpClient.get({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/fr
     } else {
       games = jsonBody.data.Catalog.searchStore.elements[i]
       console.log(games)
-      $notification.post('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
-      i++
+      if (games.promotions == null) {
+        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + 'UNKNOWN', '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        i++
+      } else if (games.promotions.upcomingPromotionalOffers == '') {
+        $notification.post('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        i++
+      } else {
+        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        i++
+      }
     }
   }
   $done()

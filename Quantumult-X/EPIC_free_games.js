@@ -18,8 +18,16 @@ $task.fetch({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/freeGa
     } else {
       games = jsonData.data.Catalog.searchStore.elements[i]
       console.log(JSON.stringify(games))
-      $notify('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {"media-url":games.keyImages[1].url})
-      i++
+      if (games.promotions == null) {
+        $notify('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + 'UNKNOWN', '📜DESCRIPTION: ' + games.description, {"media-url":games.keyImages[1].url})
+        i++
+      } else if (games.promotions.upcomingPromotionalOffers == '') {
+        $notify('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {"media-url":games.keyImages[1].url})
+        i++
+      } else {
+        $notify('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {"media-url":games.keyImages[1].url})
+        i++
+      }
     }
   }
   $done()
