@@ -33,16 +33,16 @@ function autoPost(ID) {
         } else {
           let jsonData = JSON.parse(data)
           if (jsonData.data == null) {
-            console.log(ID + ' ' + jsonData.messages[0].message)
+            console.log(ID + ': ' + jsonData.messages[0].message)
             resolve();
           } else if (jsonData.data.status == 'FULL') {
-            console.log(ID + ' ' + jsonData.data.message)
+            var name = jsonData.data.app.name
+            console.log(name + ' (' + ID + '): ' + jsonData.data.message)
             resolve();
           } else {
             $httpClient.post({url: testurl + ID + '/accept',headers: header}, function(error, resp, body) {
-              let jsonBody = JSON.parse(body)
-              $notification.post(jsonBody.data.name, 'TestFlight加入成功', '')
-              console.log(jsonBody.data.name + ' TestFlight加入成功')
+              $notification.post('🎉' + name, 'TestFlight加入成功', '')
+              console.log('🎉' + name + '🎉' + ' (' + ID + '): ' + ' TestFlight加入成功')
               ids = $persistentStore.read('APP_ID').split(',')
               ids = ids.filter(ids => ids !== ID)
               $persistentStore.write(ids.toString(),'APP_ID')
@@ -55,7 +55,7 @@ function autoPost(ID) {
           resolve();
         } else {
           $notification.post('自动加入TF', error,'')
-          console.log(ID + ' ' + error)
+          console.log(ID + ': ' + error)
           resolve();
         }
       }
