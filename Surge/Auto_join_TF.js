@@ -41,8 +41,9 @@ function autoPost(ID) {
             resolve();
           } else {
             $httpClient.post({url: testurl + ID + '/accept',headers: header}, function(error, resp, body) {
-              $notification.post('🎉' + name, 'TestFlight加入成功', '')
-              console.log('🎉' + name + '🎉' + ' (' + ID + '): ' + ' TestFlight加入成功')
+              let appName = JSON.parse(body).data.name
+              $notification.post('🎉' + appName, 'TestFlight加入成功', '')
+              console.log('🎉' + appName + '🎉' + ' (' + ID + '): ' + ' TestFlight加入成功')
               ids = $persistentStore.read('APP_ID').split(',')
               ids = ids.filter(ids => ids !== ID)
               $persistentStore.write(ids.toString(),'APP_ID')
