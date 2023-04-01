@@ -33,8 +33,7 @@ let ddnsurl = {
 }
 
 $httpClient.get(ddnsurl, function(error, response, data){
-  let jsonData = JSON.parse(data)
-  $done({addresses:  [`${jsonData.ipv6}`,`${jsonData.ipv4}`], ttl: 600});
+  $done({addresses:  data.split(';'), ttl: 600});
 });
 
 function getArgs() {
