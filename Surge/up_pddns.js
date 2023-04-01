@@ -1,4 +1,10 @@
 /*****
+⚠️此脚本暂不可用。待修复
+⚠️由于Surge的不稳定性（如网络更换导致一次性运行两次本脚本使得日志和顺序错位而使内容完全错误）
+⚠️由于Surge脚本发出的请求没有遵循Proxy的v6-only导致不可获取IP
+⚠️发现$network在iOS返回正确的公网ipv6而在Mac版返回了内网ipv6而不适用
+建议使用python版本定时运行（如设置cron）
+
 Surge iOS添加内容如下：
 [Script]这个section下粘贴以下内容：
 up_pddns = type=event,event-name=network-changed,script-path=up_pddns.js,argument=owner=👨&token=🔑&repo=🏠&branch=🛣️&filePath=📄&fileName=📖
@@ -16,8 +22,6 @@ up_pddns = type=event,event-name=network-changed,script-path=up_pddns.js,argumen
 https://raw.githubusercontent.com/woaini/PDDNS/main/DDNS.json
 或
 https://raw.githubusercontent.com/woaini/PDDNS/main/Surge/DDNS.json 此条带filePath
-
-
 ****/
 
 

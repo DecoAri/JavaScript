@@ -4,6 +4,7 @@
 使用方法：在Surge中文本编辑配置文件。
 Surge mac端需要添加规则和节点如下:
 规则：
+DOMAIN,api64.ipify.org,V6
 DOMAIN,ipapi.co,V6
 DOMAIN,api.ipify.org,V4
 节点：
