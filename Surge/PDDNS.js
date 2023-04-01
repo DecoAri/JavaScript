@@ -13,7 +13,7 @@ V4 = direct, test-url=http://connectivitycheck.platform.hicloud.com/generate_204
 
 Surge iOS添加内容如下：
 [Script]这个section下粘贴以下内容：
-DDNS = type=dns,script-path=DDNS.js,argument=URL=🌍&TOKEN=🔑
+DDNS = type=dns,script-path=https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/PDDNS.js,argument=URL=🌍&TOKEN=🔑
 [Host]下添加以下内容：
 // 随便写一个不常见域名例如
 home.mac.pddns = script:DDNS

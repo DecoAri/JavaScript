@@ -7,7 +7,7 @@
 
 Surge iOS添加内容如下：
 [Script]这个section下粘贴以下内容：
-up_pddns = type=event,event-name=network-changed,script-path=up_pddns.js,argument=owner=👨&token=🔑&repo=🏠&branch=🛣️&filePath=📄&fileName=📖
+up_pddns = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/up_pddns.js,argument=owner=👨&token=🔑&repo=🏠&branch=🛣️&filePath=📄&fileName=📖
 
 
 请替换argument里面的👨、🔑、🏠、🛣️、📄和📖。
