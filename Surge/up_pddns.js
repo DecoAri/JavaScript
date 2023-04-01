@@ -1,3 +1,27 @@
+/*****
+Surge iOS添加内容如下：
+[Script]这个section下粘贴以下内容：
+up_pddns = type=event,event-name=network-changed,script-path=up_pddns.js,argument=owner=👨&token=🔑&repo=🏠&branch=🛣️&filePath=📄&fileName=📖
+
+
+请替换argument里面的👨、🔑、🏠、🛣️、📄和📖。
+👨为你github的用户名
+🔑为github的personal access token。如不知道该开什么权限请全部勾选（⚠️别把token分享给别人）
+🏠为你的库名称
+🛣️为你的branch（一般为main或者master）
+📄为你的最终文件的路径，如：path/to/your-DDNS.json
+📖为你的文件名称：如DDNS.json
+
+举个完整例子：
+https://raw.githubusercontent.com/woaini/PDDNS/main/DDNS.json
+或
+https://raw.githubusercontent.com/woaini/PDDNS/main/Surge/DDNS.json 此条带filePath
+
+
+****/
+
+
+
 var base64EncodeChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
     base64DecodeChars = new Array((-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), 62, (-1), (-1), (-1), 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, (-1), (-1), (-1), (-1), (-1), (-1), (-1), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, (-1), (-1), (-1), (-1), (-1), (-1), 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, (-1), (-1), (-1), (-1), (-1));
 var base64encode = function (e) {
@@ -150,12 +174,12 @@ var base64ToHex = function (str) {
 };
 
 let ddns = {};
-ddns.owner = "NAME";
-ddns.token = "TOKEN";
-ddns.repo = "REPO";
-ddns.branch = "main";
-ddns.filePath = "path/to/your-DDNS.json";
-ddns.fileName = "DDNS.json";
+ddns.owner = getArgs().ower;
+ddns.token = getArgs().token;
+ddns.repo = getArgs().repo;
+ddns.branch = getArgs().branch;
+ddns.filePath = getArgs().filePath;
+ddns.fileName = getArgs().fileName;
 ddns.commitMessage = "Auto update";
 
 (async function() {
@@ -184,8 +208,8 @@ function getV4() {
 
 function getV6() {
   return new Promise(function(resolve) {
-    $httpClient.get('https://api64.ipify.org', function(error,head,data) {
-      ddns.v6 = data
+    $httpClient.get('https://ipapi.co/json/', function(error,head,data) {
+      ddns.v6 = JSON.parse(data).ip
       console.log(ddns.v6)
       resolve()
     })
@@ -228,6 +252,7 @@ function commit() {
         console.log(headers.status)
         console.log(resp)
         if (headers.status === 200 || headers.status === 201) {
+          $notification.post('Commit DDNS IP','文件上传/修改成功!',''),
           console.log("文件上传/修改成功!");
           resolve();
         } else {
@@ -238,4 +263,13 @@ function commit() {
       },
     );
   })
+}
+
+function getArgs() {
+  return Object.fromEntries(
+    $argument
+      .split("&")
+      .map((item) => item.split("="))
+      .map(([k, v]) => [k, decodeURIComponent(v)])
+  );
 }

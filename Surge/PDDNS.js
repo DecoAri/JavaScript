@@ -4,7 +4,7 @@
 使用方法：在Surge中文本编辑配置文件。
 Surge mac端需要添加规则和节点如下:
 规则：
-DOMAIN,api64.ipify.org,V6
+DOMAIN,ipapi.co,V6
 DOMAIN,api.ipify.org,V4
 节点：
 V6 = direct, test-url=http://connectivitycheck.platform.hicloud.com/generate_204, ip-version=v6-only
@@ -22,7 +22,7 @@ home.mac.pddns = script:DDNS
 🌍为你github私有库文件的链接
 🔑为github的personal access token。如不知道该开什么权限请全部勾选（⚠️别把token分享给别人）
 
-自动上传IP到github请访问本人的python库。暂时未写JS脚本（也不一定会写）
+自动上传IP到github请访问本库的up_pddns.js
 ****/
 
 let ddnsurl = {
