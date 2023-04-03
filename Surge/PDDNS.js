@@ -16,7 +16,7 @@ home.mac.pddns = script:DDNS
 把你的家里的节点的server改为上面的域名： home.mac.pddns
 
 请替换argument里面的🌍和🔑
-🌍为你github私有库的dns IP文件的链接（该文件的IP由py/js自动上传）
+🌍为你github私有库的dns IP文件的链接（该文件的IP由py/js自动上传，请不要自己填写文件内容）
 🔑为github的personal access token。如不知道该开什么权限请全部勾选（⚠️别把token分享给别人）
 
 自动上传IP到github请访问本库的up_pddns.js或者python库

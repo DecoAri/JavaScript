@@ -1,22 +1,25 @@
 /*****
-Surge Mac添加内容如下：
+使用方法：
+1: Github创建私有库后直接创建DDNS.json文件。再创建classic personal access token并给予所有权限
 
-[Rule]规则：
+2: Surge Mac文本编辑配置文件添加内容如下：
+
+3: [Rule]规则：
 DOMAIN,api64.ipify.org,V6
 DOMAIN,ipapi.co,V6
 DOMAIN,api.ipify.org,V4
 
-[Proxy]节点：
+4: [Proxy]节点：
 V6 = direct, test-url=http://connectivitycheck.platform.hicloud.com/generate_204, ip-version=v6-only
 V4 = direct, test-url=http://connectivitycheck.platform.hicloud.com/generate_204, ip-version=v4-only
 
-[Script]脚本：
+5: [Script]脚本：
 up_pddns = type=event,event-name=network-changed,script-path=https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/up_pddns.js,argument=owner=👨&token=🔑&repo=🏠&branch=🛣️&filePath=📄&fileName=📖
 
-请替换argument里面的👨、🔑、🏠、🛣️、📄和📖。
+6: 请替换步骤5里面argument里面的👨、🔑、🏠、🛣️、📄和📖。
 👨为你github的用户名
 🔑为github的personal access token。如不知道该开什么权限请全部勾选（⚠️别把token分享给别人）
-🏠为你的库名称
+🏠为你的第一步创建的库名称
 🛣️为你的branch（一般为main或者master）
 📄为你的最终文件的路径，如：path/to/your-DDNS.json
 📖为你的文件名称：如DDNS.json
