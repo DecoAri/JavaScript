@@ -34,6 +34,15 @@ https://raw.githubusercontent.com/woaini/PDDNS/main/Surge/DDNS.json 此条带fil
 
 
 
+function getArgs() {
+  return Object.fromEntries(
+    $argument
+      .split("&")
+      .map((item) => item.split("="))
+      .map(([k, v]) => [k, decodeURIComponent(v)])
+  );
+}
+
 var base64EncodeChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
     base64DecodeChars = new Array((-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), (-1), 62, (-1), (-1), (-1), 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, (-1), (-1), (-1), (-1), (-1), (-1), (-1), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, (-1), (-1), (-1), (-1), (-1), (-1), 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, (-1), (-1), (-1), (-1), (-1));
 var base64encode = function (e) {
@@ -186,7 +195,7 @@ var base64ToHex = function (str) {
 };
 
 let ddns = {};
-ddns.owner = getArgs().ower;
+ddns.owner = getArgs().owner;
 ddns.token = getArgs().token;
 ddns.repo = getArgs().repo;
 ddns.branch = getArgs().branch;
@@ -200,9 +209,10 @@ ddns.commitMessage = "Auto update";
     getV6(),
     getSha()
   ]);
-  ddns.fileContent = ddns.v4 + ';' + ddns.v6
+  ddns.fileContent = ddns.v4 + ';' + ddns.v6 + ';'
   ddns.hexContent = stringToHex(ddns.fileContent);
   ddns.base64Content = hexToBase64(ddns.hexContent);
+  console.log(ddns.base64Content)
   await commit();
   $done();
 })();
@@ -220,8 +230,8 @@ function getV4() {
 
 function getV6() {
   return new Promise(function(resolve) {
-    $httpClient.get('https://ipapi.co/json/', function(error,head,data) {
-      ddns.v6 = JSON.parse(data).ip
+    $httpClient.get('https://api64.ipify.org', function(error,head,data) {
+      ddns.v6 = data
       console.log(ddns.v6)
       resolve()
     })
@@ -265,23 +275,14 @@ function commit() {
         console.log(resp)
         if (headers.status === 200 || headers.status === 201) {
           $notification.post('Commit DDNS IP','文件上传/修改成功!',''),
-          console.log("文件上传/修改成功!");
+          console.log("文件修改成功!");
           resolve();
         } else {
-          console.log("文件上传/修改失败!");
+          console.log("文件修改失败!");
           console.log(error)
           resolve();
         }
       },
     );
   })
-}
-
-function getArgs() {
-  return Object.fromEntries(
-    $argument
-      .split("&")
-      .map((item) => item.split("="))
-      .map(([k, v]) => [k, decodeURIComponent(v)])
-  );
 }
