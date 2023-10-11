@@ -7,7 +7,7 @@ Nomo RAW premium need restored in Nomo CAM APP. So....restore Nomo CAM first.
 Usage: Use Surge module or directly add them by yourself.
 
 [Script]
-Nomo = type=http-response,pattern=https://nomo.dafork.com/api/v5/iap/ios_verify$,requires-body=1,max-size=0,script-path=Nomo.js
+Nomo = type=http-response,pattern=https://nomo.dafork.com/api/v5/iap/ios_verify$,requires-body=1,max-size=0,script-path=https://github.com/DecoAri/JavaScript/blob/main/Surge/Auto_join_TF.js?raw=trueNomo.js
 
 [MITM]
 hostname = %APPEND% nomo.dafork.com
