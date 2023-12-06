@@ -54,7 +54,7 @@ function autoPost(ID) {
       } else {
         if (error =='The request timed out.') {
           resolve();
-        } else if (includes("error -1012")) { 
+        } else if (error.includes("error -1012")) { 
           
         } else {
           $notification.post('自动加入TF', error,'')
