@@ -55,7 +55,7 @@ function autoPost(ID) {
         if (error =='The request timed out.') {
           resolve();
         } else if (error.includes("error -1012")) { 
-          $notification.post('自动加入TF', error,'请获取TF信息')
+          $notification.post('自动加入TF', error,'请获取TF信息，模块已自动关闭')
         } else {
           $notification.post('自动加入TF', error,'')
           console.log(ID + ': ' + error)
