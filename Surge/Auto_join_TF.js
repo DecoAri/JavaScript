@@ -54,7 +54,7 @@ function autoPost(ID) {
       } else {
         if (error =='The request timed out.') {
           resolve();
-         
+        } else if { 
         } else {
           $notification.post('自动加入TF', error,'')
           console.log(ID + ': ' + error)
