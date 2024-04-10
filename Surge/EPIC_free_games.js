@@ -1,5 +1,5 @@
 /*
-
+适配tf版本t z
 建议cron：1 0 * * *
 相比于rsshub来说，信息来自官网，更新更及时
 QX的js请去Quantumult X的文件夹路径寻找
