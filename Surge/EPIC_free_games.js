@@ -19,13 +19,13 @@ $httpClient.get({url:"https://store-site-backend-static-ipv4.ak.epicgames.com/fr
       games = jsonBody.data.Catalog.searchStore.elements[i]
       console.log(games)
       if (games.promotions == null) {
-        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + 'UNKNOWN', '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + 'UNKNOWN', '📜DESCRIPTION: ' + games.description, {'media-url':games.keyImages[1].url})
         i++
       } else if (games.promotions.upcomingPromotionalOffers == '') {
-        $notification.post('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        $notification.post('🎮EPIC:   ' + games.title, '🕒OPEN: ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.promotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {'media-url':games.keyImages[1].url,'action':'open-url','url':'https://store.epicgames.com/en-US/p/'+games.catalogNs.mappings[0].pageSlug})
         i++
       } else {
-        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {url:games.keyImages[1].url})
+        $notification.post('🎮EPIC:   ' + games.title, '🕒UPCOMING: ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) + '\n🕐END:    ' + transFormTime(games.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].endDate), '📜DESCRIPTION: ' + games.description, {'media-url':games.keyImages[1].url,'action':'open-url','url':'https://store.epicgames.com/en-US/p/'+games.catalogNs.mappings[0].pageSlug})
         i++
       }
     }
