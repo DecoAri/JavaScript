@@ -14,7 +14,7 @@ hostname = %APPEND% nomo.dafork.com
 
 ****/
 
-
+let world
 
 let obj = $response.body
 
