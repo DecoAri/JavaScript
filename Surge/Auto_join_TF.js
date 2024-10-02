@@ -18,7 +18,9 @@ function autoPost(ID) {
   let header = {
     'X-Session-Id': `${$persistentStore.read('session_id')}`,
     'X-Session-Digest': `${$persistentStore.read('session_digest')}`,
-    'X-Request-Id': `${$persistentStore.read('request_id')}`
+    'X-Request-Id': `${$persistentStore.read('request_id')}`,
+    'X-Apple-AMD-X': `${$persistentStore.read('X-Apple-AMD-X')}`,
+    'User-Agent': `${$persistentStore.read('TFUA')}`
   }
   return new Promise(function(resolve) {
     $httpClient.get({url: testurl + ID,headers: header}, function(error, resp, data) {
