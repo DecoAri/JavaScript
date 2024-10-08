@@ -1,3 +1,5 @@
+
+
 function getPower(callback) {
   $httpClient.get({
     url: $persistentStore.read('Follow_URL')
