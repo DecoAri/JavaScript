@@ -1,5 +1,5 @@
 /****************
-需要的东西自己抓：
+只需要以下三个就能自动签到
 https://api.follow.is/wallets?userId=
 这整个url
 
