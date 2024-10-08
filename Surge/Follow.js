@@ -29,7 +29,7 @@ function postRequest() {
       $notification.post('其他错误', '查看日志', '')
       console.log('\n'+error + '\n'+res + '\n'+data)
       console.log("Retrying request...");
-      $done();  // 其他情况结束流程
+
     }
   });
 }
