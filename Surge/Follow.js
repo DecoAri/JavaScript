@@ -1,7 +1,6 @@
 /****************
-自己抓Follow wallet ID的URL
+需要的东西自己抓：
 
-Claim daily URL的 header cookie的session token, 请求体全部
 ****************/
 
 function getPower(callback) {
