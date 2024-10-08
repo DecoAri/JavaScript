@@ -1,6 +1,6 @@
 /****************
 只需要以下三个就能自动签到
-https://api.follow.is/wallets?userId=
+https://api.follow.is/wallets?userId=xxxxxxx
 1: 这整个url
 
 
