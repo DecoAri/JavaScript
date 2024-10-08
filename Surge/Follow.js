@@ -1,6 +1,6 @@
 /****************
 需要的东西自己抓：
-
+https://api.follow.is/wallets?userId=55495470337521664
 ****************/
 
 function getPower(callback) {
