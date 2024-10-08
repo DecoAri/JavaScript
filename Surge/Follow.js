@@ -11,7 +11,7 @@ function postRequest() {
   $httpClient.post({
     url: 'https://api.follow.is/wallets/transactions/claim_daily',
     headers: {'cookie': 'authjs.session-token=' + `${$persistentStore.read('APP_ID')}`},
-    body: {"csrfToken": 我}
+    body: {"csrfToken": `${$persistentStore.read('APP_ID')}`}
   }, function (error, res, data) {
     let code = JSON.parse(data).code;
     console.log('Code: ' + code);
