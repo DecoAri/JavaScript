@@ -1,5 +1,7 @@
 /****************
-自己抓Follow wallet ID的URL,header的session token, body全部
+自己抓Follow wallet ID的URL
+
+header的session token, body全部
 
 
 ****************/
