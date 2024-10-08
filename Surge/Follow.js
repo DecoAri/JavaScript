@@ -29,7 +29,7 @@ function postRequest() {
       $notification.post('其他错误', '查看日志', '')
       console.log('\n'+error + '\n'+res + '\n'+data)
       console.log("Retrying request...");
-
+      postRequest();  // 如果code=4000，重新发起POST请求（不获取power）
     }
   });
 }
