@@ -6,6 +6,7 @@ https://api.follow.is/wallets?userId=
 
 https://api.follow.is/wallets/transactions/claim_daily
 请求头的cookie:authjs.session-token=
+请求体的
 ****************/
 
 function getPower(callback) {
