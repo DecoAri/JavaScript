@@ -1,7 +1,7 @@
 /****************
 只需要以下三个就能自动签到
 https://api.follow.is/wallets?userId=
-这整个url
+1: 这整个url
 
 
 https://api.follow.is/wallets/transactions/claim_daily
