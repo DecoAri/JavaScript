@@ -7,6 +7,8 @@ https://api.follow.is/wallets?userId=
 https://api.follow.is/wallets/transactions/claim_daily
 请求头的cookie:authjs.session-token=
 整个请求体
+
+
 示例脚本 自己改
 ****************/
 
