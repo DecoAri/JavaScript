@@ -8,7 +8,7 @@ https://api.follow.is/wallets/transactions/claim_daily
 2: 请求头的cookie:authjs.session-token=
 3: 整个请求体
 
-现在已经有人写了脚本转换器。所以QX loon
+现在已经有人写了脚本转换器。所以QX loon shadowrocket不再更新
 以下示例脚本 自己改
 ****************/
 
