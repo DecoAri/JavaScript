@@ -1,6 +1,6 @@
 function getPower(callback) {
   $httpClient.get({
-    url: 
+    url: $persistentStore.read('APP_ID')
   }, function (error, resp, body) {
     let power = JSON.parse(body).data[0].dailyPowerToken / 1e18
     callback(power);  // 将获取到的 power 通过回调传递给调用者
