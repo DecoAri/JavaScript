@@ -1,6 +1,6 @@
 /****************
 需要的东西自己抓：
-https://api.follow.is/wallets?userId= 这个url
+https://api.follow.is/wallets?userId= 这整个url
 
 https://api.follow.is/wallets/transactions/claim_daily
 ****************/
