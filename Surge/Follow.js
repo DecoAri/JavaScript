@@ -1,5 +1,5 @@
 /****************
-自己抓Follow wallet ID和
+自己抓Follow wallet ID和header的session token, body
 
 
 ****************/
