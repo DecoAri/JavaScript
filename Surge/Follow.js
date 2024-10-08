@@ -1,6 +1,7 @@
 /****************
 需要的东西自己抓：
-https://api.follow.is/wallets?userId= 
+https://api.follow.is/wallets?userId= 这个url
+
 ****************/
 
 function getPower(callback) {
