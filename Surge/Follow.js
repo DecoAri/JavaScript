@@ -10,7 +10,7 @@ function getPower(callback) {
 function postRequest() {
   $httpClient.post({
     url: 'https://api.follow.is/wallets/transactions/claim_daily',
-    headers: {'cookie': 'authjs.session-token='},
+    headers: {'cookie': 'authjs.session-token=' + },
     body: {"csrfToken": ""}
   }, function (error, res, data) {
     let code = JSON.parse(data).code;
