@@ -26,7 +26,7 @@ function postRequest() {
       console.log("Retrying request...");
       postRequest();  // 如果code=4000，重新发起POST请求（不获取power）
     } else {
-      
+      $notification.post(
       console.log('\n'+error + '\n'+res + '\n'+data)
       console.log("Retrying request...");
       $done();  // 其他情况结束流程
