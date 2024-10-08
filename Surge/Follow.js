@@ -1,4 +1,4 @@
-
+/********
 
 function getPower(callback) {
   $httpClient.get({
