@@ -39,11 +39,14 @@ function postRequest() {
     } else if (code === 4000) {
       console.log("Retrying request...");
       postRequest();  // 如果code=4000，重新发起POST请求（不获取power）
+    } else if (code === 1000) {
+      $notification.post('Follow', '未授权', '请重新获取cookie', {'media-url':'https://app.follow.is/opengraph-image.png'})
+      console.log(data)
+      $done();  // 其他情况结束流程
     } else {
       $notification.post('其他错误', '查看日志', '')
       console.log('\n'+error + '\n'+res + '\n'+data)
-      console.log("Retrying request...");
-      postRequest();  // 如果code=4000，重新发起POST请求（不获取power）
+      $done()
     }
   });
 }
