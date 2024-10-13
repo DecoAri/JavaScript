@@ -24,7 +24,7 @@ function getPower(callback) {
 function postRequest() {
   $httpClient.post({
     url: 'https://api.follow.is/wallets/transactions/claim_daily',
-    headers: {'cookie': 'authjs.session-token=' + `${$persistentStore.read('Follow_sToken')}` + ';' + },
+    headers: {'cookie': 'authjs.session-token=' + `${$persistentStore.read('Follow_sToken')}` + ';' + `${$persistentStore.read('Follow_sToken')}`},
     body: {"csrfToken": `${$persistentStore.read('Follow_csrfToken')}`}
   }, function (error, res, data) {
     let code = JSON.parse(data).code;
