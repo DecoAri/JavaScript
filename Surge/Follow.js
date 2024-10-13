@@ -14,7 +14,7 @@ https://api.follow.is/wallets/transactions/claim_daily
 
 function getPower(callback) {
   $httpClient.get({
-    url: $persistentStore.read('Follow_URL')
+    url: $persistentStore.read('Follow_URL'),
   }, function (error, resp, body) {
     let power = JSON.parse(body).data[0].dailyPowerToken / 1e18
     callback(power);  // 将获取到的 power 通过回调传递给调用者
