@@ -33,7 +33,7 @@ function postRequest() {
     if (code === 0) {
       getPower(function (finalPower) {  // 如果code=0，再次获取power
         console.log('Final Power after POST: ' + finalPower);
-        $notification.post('Follow', 'Power: ' + finalPower,'Power updated', {'media-url':'https://app.follow.is/opengraph-image.png'})
+        $notification.post('Follow', 'Power: ' + finalPower,'Sign successful. 数据可能有延迟。如需确认请自行登录Follow点击刷新power', {'media-url':'https://app.follow.is/opengraph-image.png'})
         $done();  // 完成流程
       });
     } else if (code === 4000) {
