@@ -204,9 +204,12 @@ ddns.fileName = getArgs().fileName;
 ddns.commitMessage = "Auto update";
 
 (async function() {
+  console.log("等待 1 分钟后运行脚本..."); //防止网络更换脚本识别错误
+  await new Promise(resolve => setTimeout(resolve, 60000));
+  console.log("开始运行脚本...");
   await Promise.all([
-    getV4(),
-    getV6(),
+    getV4(), //如果没有公网v4不要执行此条，因为api能获取到公网IP但你没有。surge连接此地址不通。直接使用ddns.v4 = null
+    getV6(), //有公网v6。这里v6可以直接使用$network.v6.primaryAddress。不用api请求更快更准。没有公网v6使用ddns.v6 = null
     getSha()
   ]);
   ddns.fileContent = ddns.v4 + ';' + ddns.v6 + ';'
